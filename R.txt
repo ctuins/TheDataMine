@@ -1,0 +1,23 @@
+eventsDF <- read.csv("/anvil/projects/tdm/data/olympics/athlete_events.csv")
+table(eventsDF$Year)
+head(sort(table(eventsDF$Team), decreasing=TRUE))
+
+head(eventsDF$Games)
+
+head(sort(tapply(eventsDF$Height, eventsDF$Team, mean, na.rm=TRUE),decreasing=TRUE))
+head(sort(tapply(eventsDF$Age, eventsDF$Team, max, na.rm=TRUE), decreasing=TRUE))
+head(sort(tapply(eventsDF$Weight, eventsDF$Team, sum, na.rm=TRUE), decreasing=TRUE))
+
+deathrecordsDF <- read.csv("/anvil/projects/tdm/data/death_records/DeathRecords.csv")
+colnames(deathrecordsDF)
+
+head(deathrecordsDF$DayOfWeekOfDeath)
+table(factor(deathrecordsDF$DayOfWeekOfDeath,levels=c(1:7,9),labels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday","Unknown")))
+
+tapply(deathrecordsDF$Age, deathrecordsDF$Sex, mean)
+table(deathrecordsDF$MaritalStatus[deathrecordsDF$Sex == "M"])
+table(deathrecordsDF$MaritalStatus[deathrecordsDF$Sex == "F"])
+tapply(deathrecordsDF$MaritalStatus, deathrecordsDF$Sex, table)
+
+hist(eventsDF$Height)
+hist(deathrecordsDF$Age, xlim=c(0,100),breaks=100000)
